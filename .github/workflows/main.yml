@@ -30,4 +30,4 @@ jobs:
     needs: [build_and_test_ubuntu]
     steps:
       - name: echo deploy
-        run: 'deployed!'
+        run: echo 'deployed!'
