@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     #internal apps
     "authentication.apps.AuthenticationConfig",
     "utils.apps.UtilsConfig",
+    "customers.apps.CustomersConfig",
 ]
 
 MIDDLEWARE = [

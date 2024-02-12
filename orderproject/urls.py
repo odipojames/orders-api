@@ -21,7 +21,8 @@ from oidc_provider import urls as oidc_urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('openid/', include(oidc_urls)),
+    #path('openid/', include(oidc_urls)),
     path("api/v1/auth/", include("authentication.urls")),
+    path("api/v1/", include("customers.urls")),
     
 ]

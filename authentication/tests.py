@@ -3,6 +3,8 @@ from rest_framework.test import APIClient
 from rest_framework import status
 from django.urls import reverse
 from .models import CustomUser as User
+from rest_framework.test import APITestCase
+from rest_framework.authtoken.models import Token
 
 class UserRegistrationTestCase(TestCase):
     def setUp(self):
@@ -28,3 +30,15 @@ class UserRegistrationTestCase(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertTrue('token' in response.data)
 
+
+class ProtectedResourceViewTests(APITestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(username='test_user', password='test_password')
+        self.token = Token.objects.create(user=self.user)
+
+    def test_protected_resource_view(self):
+        url = reverse('protected_resource')
+        self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {self.token}')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['message'], 'You are authenticated via OIDC')
