@@ -26,7 +26,7 @@ class CustomerListCreateView(generics.ListCreateAPIView):
         return Response(response, status=status.HTTP_201_CREATED)
     
 
-class CustomerDetailView(generics.RetrieveUpdateDestroyAPIView):
+class CustomerDetailView(generics.RetrieveAPIView):
     """
     This class defines the views for retrieving a single customer.
     """

@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'oidc_provider',
     'rest_framework',
     'rest_framework.authtoken',
+    'drf_yasg',
     #internal apps
     "authentication.apps.AuthenticationConfig",
     "utils.apps.UtilsConfig",
@@ -154,3 +155,12 @@ STATIC_ROOT = BASE_DIR / "staticfiles_build" / "static"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+#swagger
+SWAGGER_SETTINGS = {
+    "SECURITY_DEFINITIONS": {
+        "Bearer": {"type": "apiKey", "name": "Authorization", "in": "header"}
+    }
+}
+
