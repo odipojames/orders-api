@@ -27,17 +27,7 @@ class OrderAPITestCase(APITestCase):
         expected_data = OrderSerializer(instance=[order1, order2], many=True).data
         self.assertEqual(response.data, expected_data)
 
-    # def test_create_order(self):
-    #     url = reverse('create-list-order')
-    #     data = {'customer': self.customer.pk, 'amount': 150, 'item':'tv'}
-        
-    #     self.client.credentials(HTTP_AUTHORIZATION='Bearer ' + self.token.key)
-    #     response = self.client.post(url, data, format='json')
-    #     self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        
-    #     created_order = Order.objects.filter(amount=150).first()
-    #     self.assertIsNotNone(created_order)
-
+    
     def test_retrieve_order(self):
         order = Order.objects.create_order(customer=self.customer, amount=300,item='tv')
         url = reverse('order-details', kwargs={'pk': order.pk})
