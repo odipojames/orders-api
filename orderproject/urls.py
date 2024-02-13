@@ -15,6 +15,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.conf import settings
 from django.urls import path,include
 from oidc_provider import urls as oidc_urls
 from django.conf.urls.static import static
@@ -26,10 +27,10 @@ from django.views.generic.base import RedirectView
 
 schema_view = get_schema_view(
     openapi.Info(
-        title="ordes API",
+        title="orders API",
         default_version="v1",
         description=(
-            "Savana Iformatics Technical Challange, Simple Api build with Python,Django_rest framework  and postgresql db"
+            "Savana Informatics Technical Challenge, Simple API built with Python, Django REST framework, and PostgreSQL DB"
         ),
         terms_of_service="https://www.odipojames12.com/policies/terms/",
         contact=openapi.Contact(email="odipojames12@mail.com"),
@@ -39,25 +40,19 @@ schema_view = get_schema_view(
 )
 
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("api/v1/auth/", include("authentication.urls")),
     path("api/v1/", include("customers.urls")),
-    path(
-        "api/v1/docs/",
-        schema_view.with_ui("swagger", cache_timeout=0),
-        name="api-documentation",
-    ),
-    path(
-        "api/v1/redoc/",
-        schema_view.with_ui("redoc", cache_timeout=0),
-        name="schema-redoc",
-    ),
-    path(
-        "",
-        RedirectView.as_view(url="api/v1/docs/", permanent=False),
-        name="api_documentation",
-    ),
+    path("api/v1/docs/", schema_view.with_ui("swagger"), name="api-documentation"),
+    path("api/v1/redoc/", schema_view.with_ui("redoc"), name="schema-redoc"),
+    path("", RedirectView.as_view(url="api/v1/docs/", permanent=False), name="api_documentation"),
     
 ]
+
+
+
+# Cache settings
+if settings.DEBUG:
+    from django.views.decorators.cache import cache_page
+    schema_view = cache_page(60 * 15)(schema_view)
