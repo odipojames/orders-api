@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "authentication.apps.AuthenticationConfig",
     "utils.apps.UtilsConfig",
     "customers.apps.CustomersConfig",
+    "orders.apps.OrdersConfig"
 ]
 
 MIDDLEWARE = [
@@ -155,6 +156,11 @@ STATIC_ROOT = BASE_DIR / "staticfiles_build" / "static"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# sms keys
+AF_USERNAME = os.getenv("AF_USERNAME","odipojames")
+APIKEY = os.getenv("APIKEY","bbfc7c31bfd63595a197cc64f0c93b66cdf674cff2aed502a280cc96374b8a3")
 
 
 #swagger

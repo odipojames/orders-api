@@ -26,17 +26,11 @@ class CustomObtainAuthToken(ObtainAuthToken):
 
         # Delete existing tokens associated with the user
         AuthToken.objects.filter(user=user).delete()
-
         # Create a new authentication token
         token = AuthToken.objects.create(user=user)
-
         return Response({'token': token.key})
 
 
 
 
 
-@api_view(['GET'])
-@oidc_protected_resource
-def protected_resource_view(request):
-    return Response({'message': 'You are authenticated via OIDC'})

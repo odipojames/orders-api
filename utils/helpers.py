@@ -1,6 +1,7 @@
 from django.core.exceptions import ValidationError
 from django.db.utils import IntegrityError
-
+import africastalking
+from orderproject.settings import AF_USERNAME, APIKEY
 
 def enforce_all_required_arguments_are_truthy(kwargs, required_args):
     """
@@ -53,3 +54,18 @@ def get_errored_integrity_field(exc):
     field = exc_message[exc_message.find("(") + 1 : exc_message.find(")")]
 
     return field if field else None
+
+
+
+
+# Initialize SDK for sending sms
+username = AF_USERNAME
+api_key = APIKEY
+africastalking.initialize(username,api_key)
+
+
+def send_sms(message, recipients):
+    """send sms notifications"""
+    sms = africastalking.SMS
+    sender = "softsearch"
+    return sms.send(message, recipients, sender)

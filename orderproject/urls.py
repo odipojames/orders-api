@@ -44,6 +44,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("api/v1/auth/", include("authentication.urls")),
     path("api/v1/", include("customers.urls")),
+    path("api/v1/", include("orders.urls")),
     path("api/v1/", schema_view.with_ui("swagger"), name="api-documentation"),
     path("api/v1/redoc/", schema_view.with_ui("redoc"), name="schema-redoc"),
     path("", RedirectView.as_view(url="api/v1/", permanent=False), name="api_documentation"),

@@ -1,18 +1,23 @@
 from rest_framework import generics, status
 from rest_framework.response import Response
-from rest_framework.views import APIView
 from .models import Customer
 from .serializers import CustomerSerializer
 from django.http import Http404
+from rest_framework.renderers import JSONRenderer
+from utils.decorators import oidc_protected_resource
 
 
 class CustomerListCreateView(generics.ListCreateAPIView):
     serializer_class = CustomerSerializer
+    renderer_classes = (JSONRenderer,)
+    
+   
     def get_queryset(self):
         """ Listing all customers"""
         
         return Customer.objects.all()
-
+    
+    @oidc_protected_resource
     def create(self, request, **kwargs):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -25,6 +30,14 @@ class CustomerListCreateView(generics.ListCreateAPIView):
 
         return Response(response, status=status.HTTP_201_CREATED)
     
+    
+    @oidc_protected_resource
+    def list(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+        serializer = self.serializer_class(queryset, many=True)
+        return Response(serializer.data)
+
+    
 
 class CustomerDetailView(generics.RetrieveAPIView):
     """
@@ -33,6 +46,10 @@ class CustomerDetailView(generics.RetrieveAPIView):
 
     queryset = Customer.objects.all()  # Queryset for all customers
     serializer_class = CustomerSerializer  # Serializer class for customer objects
+    renderer_classes=(JSONRenderer,)
+    
+    
+
 
     def get_object(self):
         """
@@ -45,6 +62,7 @@ class CustomerDetailView(generics.RetrieveAPIView):
         except Customer.DoesNotExist:
             raise Http404("Customer does not exist")
         
+    @oidc_protected_resource  
     def retrieve(self, request, *args, **kwargs):
         """
         Retrieve a single customer.

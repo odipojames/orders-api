@@ -30,7 +30,7 @@ class CustomerManager(models.Manager):
 
 class Customer(AbstractBaseModel, models.Model):
     """
-    Class for modelling Order entities.
+    Class for modelling Customer entities.
     """
     name = models.CharField(max_length=50)
     phone = models.CharField(unique=True, max_length=50)
