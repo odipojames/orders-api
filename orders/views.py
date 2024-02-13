@@ -18,7 +18,7 @@ class OrderListCreateView(generics.ListCreateAPIView):
     
   
     def get_queryset(self):
-        """ Listing all orders"""
+        """Listing all orders"""
         
         return Order.objects.all()
     
