@@ -24,5 +24,6 @@ jobs:
           python -m pip install virtualenv
           python -m venv venv
           .\venv\Scripts\activate
+          python -m pip install setuptools
           python -m pip install -r requirements.txt
           python manage.py test
