@@ -5,7 +5,17 @@ from .models import CustomUser as User
 from rest_framework.authtoken.views import ObtainAuthToken
 from utils.decorators import oidc_protected_resource
 from rest_framework.authtoken.models import Token as AuthToken
+from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
 
+@swagger_auto_schema(method='post', request_body=openapi.Schema(
+    type="object",
+    required=["username", "password"],
+    properties={
+        "username": openapi.Schema(type="string", description="Username of the user to register"),
+        "password": openapi.Schema(type="string", description="Password of the user to register"),
+    },
+))
 @api_view(['POST'])
 def register_user(request):
     username = request.data.get('username')
