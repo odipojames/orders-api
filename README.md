@@ -1,3 +1,4 @@
+![Screenshot 2024-02-13 212850](https://github.com/odipojames/orders-api/assets/40570916/01578fa5-8ae4-42b0-9a3b-53500114f10f)
 # Savana Technical Challange
 
 Vercel Staging URL - https://orders-api-chi.vercel.app/api/v1/
